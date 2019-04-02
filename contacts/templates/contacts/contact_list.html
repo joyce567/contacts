@@ -1,0 +1,32 @@
+{% extends 'contacts/base.html'%}
+{% block title %}Contacts{% endblock %}
+
+{% block content%}
+<div class="container">
+<div class = "row">
+   {% if contacts %}
+    {% for contact in contacts %}
+       <div class = col-sm-3>
+       <div class = "card my-1">
+           <img src="{{contact.cover.url}}" class="img img-responsive" alt="">
+           <div class = "card-header"  style="background-color:{%if contact.is_male%}blue;{%else%}red{%endif%}">
+               <i class = "fas{%if contact.is_male%}fa-mars;{%else%}fa-venus;{%endif%}"></i>&nbsp;
+               {{contact.name}}
+           </div>
+
+           <div class="card-body" style="color:{%if contact.is_male%}blue;{%else%}red;{%endif%}">
+               <p><i class="fas fa-envelope"></i>&nbsp;{{contact.email}}</p>
+               <p><i class="fas fa-phone"></i>&nbsp;{{contact.telephone}}</p>
+               <p><i class="fas fa-user-circle"></i>&nbsp;{{contact.relation}}</p>
+               <p><i class="fas fa-globe"></i>&nbsp;{{contact.residence}}</p>
+
+               <a href="{% url 'contacts:update-contact' contact.id %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+               <a href="{% url 'contacts:delete-contact' contact.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+           </div>
+       </div>
+       </div>
+    {% endfor %}
+   {% endif %}
+</div>
+</div>
+{% endblock %}
